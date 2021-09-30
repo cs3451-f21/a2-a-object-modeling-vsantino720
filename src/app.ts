@@ -105,6 +105,61 @@ class Drawing extends DrawingCommon {
         
         bodyRoot.add( mesh );
 
+        // Legs
+
+        var legFL = new THREE.Group();
+        var legFR = new THREE.Group();
+        var legBL = new THREE.Group();
+        var legBR = new THREE.Group();
+
+        var ulegFR = createUpperLeg(.5, .2);
+        var ulegFL = createUpperLeg(.5, .2);
+
+
+        ulegFR.position.set(0.9, -0.45, -0.4);
+        legFR.add(ulegFR);
+
+        ulegFL.position.set(0.9, -0.45, 0.4);
+        legFL.add(ulegFL);
+
+        var ulegBR = createUpperLeg(.45, .2);
+        ulegBR.position.set(-2.2, -0.3, 0.3);
+        ulegBR.rotateZ(-Math.PI / 9)
+        ulegBR.rotateX(-Math.PI / 12)
+        legBR.add(ulegBR);
+
+        var ulegBL = createUpperLeg(.45, .2);
+        ulegBL.position.set(-2.2, -0.3, -0.3);
+        ulegBL.rotateZ(-Math.PI / 9)
+        ulegBL.rotateX(Math.PI / 12)
+        legBL.add(ulegBL);
+
+        var llegFR = createLowerLeg(.2, .1);
+        llegFR.position.set(0.9, -1.9, -0.4)
+        legFR.add(llegFR);
+
+        var llegFL = createLowerLeg(.2, .1);
+        llegFL.position.set(0.9, -1.9, 0.4)
+        legFL.add(llegFL);
+
+        var llegBR = createLowerLeg(.2, .1);
+        llegBR.position.set(-2.7, -1.7, 0.7);
+        legBR.add(llegBR);
+
+        var llegBL = createLowerLeg(.2, .1);
+        llegBL.position.set(-2.7, -1.7, -0.7);
+        legBL.add(llegBL);
+
+        bodyRoot.add(legBL);
+        bodyRoot.add(legFR);
+        bodyRoot.add(legFL);
+        bodyRoot.add(legBR);
+
+        // Tail
+        var tailGroup = createTail();
+        tailGroup.position.set(-2.6, 0.4, 0)
+        bodyRoot.add(tailGroup);
+    
         headRoot.position.set(2.5, 1, 0)
         headRoot.rotateY(Math.PI / 4);
 
@@ -203,3 +258,75 @@ function createEye() : THREE.Group {
     eyeGroup.add( mesh );
     return eyeGroup;
 }
+function createUpperLeg( topR : number, botR : number) : THREE.Group {
+    var legGroup = new THREE.Group();
+
+    //Make leg rotate around the top (where it attaches to torso)
+    var geometry = new THREE.CylinderGeometry(topR, botR, 1.5, 20, 20, false);
+    var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    var mesh = new THREE.Mesh( geometry, material );
+
+    mesh.position.set(0, -0.75, 0);
+    legGroup.add(mesh);
+
+    return legGroup;
+
+}
+
+function createLowerLeg(topR: number, botR: number) {
+    var legGroup = new THREE.Group();
+
+    //Make leg rotate around the top (where it attaches to torso)
+    var geometry : THREE.BufferGeometry = new THREE.CylinderGeometry(topR, botR, 1, 20, 20, false);
+    var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    var mesh = new THREE.Mesh( geometry, material );
+
+    mesh.position.set(0, -0.5, 0);
+    legGroup.add(mesh);
+
+    var geometry : THREE.BufferGeometry = new THREE.SphereGeometry(topR, 20, 20);
+    var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    var mesh = new THREE.Mesh( geometry, material );
+
+    mesh.position.set(0, 0, 0);
+    legGroup.add(mesh);
+
+
+    geometry = new THREE.BoxGeometry(.5, .15, 4 * botR);
+    var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    var mesh = new THREE.Mesh( geometry, material );
+
+    mesh.position.set(0.06, -1, 0);
+    legGroup.add(mesh);
+
+    return legGroup;
+}
+
+function createTail() : THREE.Group {
+    var tailGroup = new THREE.Group();
+    var geometry : THREE.BufferGeometry = new THREE.TorusGeometry(2, 0.1, 10, 10, 1.5);
+    var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    var mesh = new THREE.Mesh( geometry, material );
+
+    mesh.rotateY(Math.PI)
+    mesh.rotateZ(Math.PI * 1.1)
+    mesh.position.set(-1.9, .6, 0);
+    
+    tailGroup.add(mesh);
+
+    geometry = new THREE.SphereGeometry(0.1, 10, 10);
+    material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    mesh = new THREE.Mesh( geometry, material );
+
+    tailGroup.add(mesh);
+
+    geometry = new THREE.SphereGeometry(0.1, 10, 10);
+    material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
+    mesh = new THREE.Mesh( geometry, material );
+
+    mesh.position.set(-2.35, -1.35, 0)
+    tailGroup.add(mesh);
+
+    return tailGroup;
+}
+
