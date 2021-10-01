@@ -115,45 +115,50 @@ class Drawing extends DrawingCommon {
         var ulegFR = createUpperLeg(.5, .2);
         var ulegFL = createUpperLeg(.5, .2);
 
-
-        ulegFR.position.set(0.9, -0.45, -0.4);
         legFR.add(ulegFR);
-
-        ulegFL.position.set(0.9, -0.45, 0.4);
         legFL.add(ulegFL);
 
         var ulegBR = createUpperLeg(.45, .2);
-        ulegBR.position.set(-2.2, -0.3, 0.3);
         ulegBR.rotateZ(-Math.PI / 9)
         ulegBR.rotateX(-Math.PI / 12)
         legBR.add(ulegBR);
 
         var ulegBL = createUpperLeg(.45, .2);
-        ulegBL.position.set(-2.2, -0.3, -0.3);
         ulegBL.rotateZ(-Math.PI / 9)
         ulegBL.rotateX(Math.PI / 12)
         legBL.add(ulegBL);
 
         var llegFR = createLowerLeg(.2, .1);
-        llegFR.position.set(0.9, -1.9, -0.4)
+        llegFR.position.set(0, -1.45, 0)
         legFR.add(llegFR);
 
         var llegFL = createLowerLeg(.2, .1);
-        llegFL.position.set(0.9, -1.9, 0.4)
+        llegFL.position.set(0, -1.45, 0)
         legFL.add(llegFL);
 
         var llegBR = createLowerLeg(.2, .1);
-        llegBR.position.set(-2.7, -1.7, 0.7);
+        llegBR.position.set(-0.5, -1.4, 0.4);
         legBR.add(llegBR);
 
         var llegBL = createLowerLeg(.2, .1);
-        llegBL.position.set(-2.7, -1.7, -0.7);
+        llegBL.position.set(-0.5, -1.4, -0.4);
         legBL.add(llegBL);
+
+        legBL.scale.set(1.2, 1.1, 0.75);
+        legBR.scale.set(1.2, 1.1, 0.75);
+        legFR.scale.set(1, 1, 0.75);
+        legFL.scale.set(1, 1, 0.75);
+
+        legFR.position.set(0.9, -0.45, -0.5);
+        legFL.position.set(0.9, -0.45, 0.5);
+        legBR.position.set(-2.15, -0.25, 0.35);
+        legBL.position.set(-2.15, -0.25, -0.35);
 
         bodyRoot.add(legBL);
         bodyRoot.add(legFR);
         bodyRoot.add(legFL);
         bodyRoot.add(legBR);
+
 
         // Tail
         var tailGroup = createTail();
