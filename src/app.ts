@@ -14,6 +14,7 @@ class Drawing extends DrawingCommon {
 	*/
 	initializeScene(){
         const objectRoot = new THREE.Group();
+        objectRoot.scale.set(0.8, 0.8, 0.8)
 
         // HeadRoot
         var headRoot = new THREE.Group();
@@ -28,6 +29,7 @@ class Drawing extends DrawingCommon {
         var material = new THREE.MeshPhongMaterial( { color: 0x202020, flatShading: true } );
         var mesh = new THREE.Mesh( geometry, material );
         mesh.position.set(0,0,0);
+        mesh.scale.set(1, .95, 1)
         headRoot.add( mesh );
 
         // Eyes
